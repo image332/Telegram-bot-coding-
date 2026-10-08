@@ -1,0 +1,30 @@
+# Render Blueprint for VIDEO & MUSIC DOWNLOADS.
+# One FREE Web Service. No background workers. No secrets in this file:
+# values marked "sync: false" are entered in the Render dashboard.
+services:
+  - type: web
+    name: video-music-downloads
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      # REQUIRED: your bot token from @BotFather. Set in the dashboard.
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      # REQUIRED: your numeric Telegram user ID(s), comma-separated. Set in the dashboard.
+      - key: ADMIN_IDS
+        sync: false
+      # PORT is injected by Render automatically (do not set it here).
+      # cookies.txt is uploaded as a Render "Secret File", which is mounted at /etc/secrets/cookies.txt.
+      # If you have not uploaded it, the bot uses public YouTube requests only.
+      - key: COOKIES_PATH
+        value: /etc/secrets/cookies.txt
+      - key: DOWNLOAD_DIR
+        value: /tmp/vmd-downloads
+      - key: MAX_UPLOAD_MB
+        value: "50"
+      - key: MAX_CONCURRENT_DOWNLOADS
+        value: "2"

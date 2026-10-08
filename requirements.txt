@@ -1,0 +1,7 @@
+# Installed during the Docker/Render BUILD stage only. The bot never runs pip at startup.
+python-telegram-bot==22.8
+# [default] pulls in yt-dlp's bundled YouTube challenge solver scripts (yt-dlp-ejs),
+# so the bot does not need to download anything from GitHub at runtime.
+yt-dlp[default]>=2026.8.19
+# Optional fallback FFmpeg for local, non-Docker runs. The Docker image uses system FFmpeg.
+imageio-ffmpeg>=0.6.0
